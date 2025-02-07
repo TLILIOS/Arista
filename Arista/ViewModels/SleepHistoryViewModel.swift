@@ -8,9 +8,11 @@
 import Foundation
 import CoreData
 
-class SleepHistoryViewModel: ObservableObject {
+class SleepHistoryViewModel: ObservableObject, ErrorHandling {
     @Published var sleepSessions = [Sleep]()
-    
+    @Published var errorMessage: String?
+    @Published var showError = false
+        
     private var viewContext: NSManagedObjectContext
     
     init(context: NSManagedObjectContext) {
@@ -23,7 +25,7 @@ class SleepHistoryViewModel: ObservableObject {
             let data = SleepRepository(viewContext: viewContext)
             sleepSessions = try data.getSleepSessions()
         } catch {
-            
+            handleError(error, operation: "Impossible de supprimer l'exercice")
         }
     }
 }

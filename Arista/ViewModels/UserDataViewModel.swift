@@ -6,28 +6,30 @@
 //
 
 import Foundation
-import CoreData
 
-class UserDataViewModel: ObservableObject {
+
+
+class UserDataViewModel: ObservableObject, ErrorHandling {
     @Published var firstName: String = ""
     @Published var lastName: String = ""
-
-    private var viewContext: NSManagedObjectContext
-
-    init(context: NSManagedObjectContext) {
-        self.viewContext = context
+    @Published var errorMessage: String?
+    @Published var showError = false
+    
+ 
+    
+    init() {
+        
         fetchUserData()
     }
-
+    
     private func fetchUserData() {
-    do {
-    guard let user = try UserRepository().getUser() else {
-    fatalError()
-    }
-    firstName = user.firstName ?? ""
-    lastName = user.lastName ?? ""
-    } catch {
-     
-    }
+        do {
+             let user = try UserRepository().getUser()
+            
+            firstName = user?.firstName ?? ""
+            lastName = user?.lastName ?? ""
+        } catch {
+            handleError(error, operation: "Impossible de charger les données utilisateur")
+        }
     }
 }

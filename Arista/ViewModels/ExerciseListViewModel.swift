@@ -6,46 +6,36 @@
 //
 
 import Foundation
-import CoreData
 
-class ExerciseListViewModel: ObservableObject {
+
+class ExerciseListViewModel: ObservableObject, ErrorHandling {
+    
     @Published var exercises = [Exercise]()
     @Published var errorMessage: String?
     @Published var showError = false
+    let exerciseRepository: ExerciseRepository = ExerciseRepository()
     
-    var viewContext: NSManagedObjectContext
     
-    init(context: NSManagedObjectContext) {
-        self.viewContext = context
+    init() {
         refreshExercises()
     }
     
-    /// Rafraîchit la liste des exercices depuis CoreData
+    // Rafraîchit la liste des exercices depuis CoreData
     func refreshExercises() {
         do {
-            let data = ExerciseRepository(viewContext: viewContext)
-            exercises = try data.getExercise()
+            exercises = try exerciseRepository.getExercise()
             // Effacer les erreurs précédentes en cas de succès
-            errorMessage = nil
-            showError = false
+            clearError()
         } catch {
             handleError(error, operation: "Impossible de charger les exercices")
         }
     }
     
-    /// Alias pour refreshExercises pour maintenir la compatibilité
-    func fetchExercises() {
-        refreshExercises()
-    }
-    
     func deleteExercises(at offsets: IndexSet) {
-        offsets.forEach { index in
-            let exercise = exercises[index]
-            viewContext.delete(exercise)
-        }
-        
+ 
         do {
-            try viewContext.save()
+           try  exerciseRepository.deleteExercises(at: offsets, exercises: exercises)
+          
             refreshExercises()
         } catch {
             handleError(error, operation: "Impossible de supprimer l'exercice")
@@ -54,27 +44,4 @@ class ExerciseListViewModel: ObservableObject {
         }
     }
 
-    private func handleError(_ error: Error, operation: String) {
-        let nsError = error as NSError
-        let errorDescription: String
-        
-        // Gestion spécifique des erreurs de validation CoreData
-        if nsError.domain == "NSCocoaErrorDomain" {
-            switch nsError.code {
-            case 1550:
-                errorDescription = "Des champs obligatoires sont manquants"
-            case 1600:
-                errorDescription = "Impossible de supprimer cet exercice car il est lié à d'autres données"
-            case 1670, 1671:
-                errorDescription = "La valeur entrée est hors limites"
-            default:
-                errorDescription = nsError.localizedDescription
-            }
-        } else {
-            errorDescription = nsError.localizedDescription
-        }
-        
-        errorMessage = "\(operation): \(errorDescription)"
-        showError = true
-    }
 }

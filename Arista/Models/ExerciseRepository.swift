@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 
 struct ExerciseRepository {
+    
     let viewContext: NSManagedObjectContext
     
     init(viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
@@ -27,5 +28,15 @@ struct ExerciseRepository {
         newExercise.intensity = intensity
         newExercise.startDate = startDate
         try viewContext.save()
+    }
+    func deleteExercises(at offsets: IndexSet, exercises: [Exercise]) throws {
+        offsets.forEach { index in
+            let exercise = exercises[index]
+            viewContext.delete(exercise)
+        }
+        
+        
+        try viewContext.save()
+     
     }
 }
