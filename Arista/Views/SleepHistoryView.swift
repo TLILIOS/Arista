@@ -53,6 +53,6 @@ struct QualityIndicator: View {
     }
 }
 
-#Preview {
-    SleepHistoryView(viewModel: SleepHistoryViewModel(context: PersistenceController.preview.container.viewContext))
-}
+//#Preview {
+//    SleepHistoryView(viewModel: SleepHistoryViewModel(context: PersistenceController.preview.container.viewContext))
+//}

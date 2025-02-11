@@ -41,7 +41,7 @@ struct ExerciseListView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .primaryAction) {
                     Button(action: {
                         showingAddExerciseView = true
                     }) {
@@ -57,7 +57,7 @@ struct ExerciseListView: View {
             }
         }
         .sheet(isPresented: $showingAddExerciseView) {
-            AddExerciseView(viewModel: AddExerciseViewModel(context: viewModel.viewContext),
+            AddExerciseView(viewModel: AddExerciseViewModel(),
                             onExerciseAdded: {
                 viewModel.refreshExercises()
             })
@@ -68,7 +68,7 @@ struct ExerciseListView: View {
         .onDisappear {
             viewModel.refreshExercises()
         }
-        .onChange(of: showingAddExerciseView) { isShowing in
+        .onChange(of: showingAddExerciseView) { _, isShowing in
             if !isShowing {
                 // Rafraîchir la liste quand la vue d'ajout se ferme
                 viewModel.refreshExercises()
@@ -140,6 +140,6 @@ struct IntensityIndicator: View {
     }
 }
 
-#Preview {
-    ExerciseListView(viewModel: ExerciseListViewModel(context: PersistenceController.preview.container.viewContext))
-}
+//#Preview {
+//    ExerciseListView(viewModel: ExerciseListViewModel(context: PersistenceController.preview.container.viewContext))
+//}
