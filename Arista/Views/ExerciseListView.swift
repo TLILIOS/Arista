@@ -14,30 +14,13 @@ struct ExerciseListView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(viewModel.exercises) { exercise in
-                    HStack {
-                        Image(systemName: iconForCategory(exercise.category ?? ""))
-                        VStack(alignment: .leading) {
-                            Text(exercise.category ?? "")
-                                .font(.headline)
-                            Text("Durée: \(exercise.duration) min")
-                                .font(.subheadline)
-                            Text(exercise.startDate?.formatted() ?? "Date inconnue")
-                                .font(.subheadline)
-                        }
-                        
-                        Spacer()
-                        IntensityIndicator(intensity: Int(exercise.intensity))
+                ForEach(viewModel.exercises) { exercise in ExerciseRowView(exercise: exercise, onDelete: {
+                    if let index = viewModel.exercises.firstIndex(of: exercise) {
+                        viewModel.deleteExercises(at: IndexSet([index]))
                     }
-                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                        Button(role: .destructive) {
-                            if let index = viewModel.exercises.firstIndex(of: exercise) {
-                                viewModel.deleteExercises(at: IndexSet([index]))
-                            }
-                        } label: {
-                            Label("Supprimer", systemImage: "trash")
-                        }
-                    }
+                },
+                iconName: viewModel.iconForCategory(exercise.category ?? "")
+                )
                 }
             }
             .toolbar {
@@ -77,44 +60,7 @@ struct ExerciseListView: View {
         
     }
     
-    func iconForCategory(_ category: String) -> String {
-        switch category {
-        case "Football":
-            return "sportscourt"
-        case "Natation":
-            return "waveform.path.ecg"
-        case "Running":
-            return "figure.run"
-        case "Marche":
-            return "figure.walk"
-        case "Cyclisme":
-            return "bicycle"
-        case "Basketball":
-            return "basketball"
-        case "Tennis":
-            return "tennis.racket"
-        case "Yoga":
-            return "figure.yoga"
-        case "Golf":
-            return "figure.golf"
-        case "Escalade":
-            return "figure.climbing"
-        case "Musculation":
-            return "dumbbell"
-        case "Randonnée":
-            return "figure.hiking"
-        case "Danse":
-            return "figure.dance"
-        case "Boxe":
-            return "figure.boxing"
-        case "Ski":
-            return "figure.skiing"
-        case "Surf":
-            return "figure.surfing"
-        default:
-            return "person.fill.questionmark"
-        }
-    }
+    
 }
 
 struct IntensityIndicator: View {

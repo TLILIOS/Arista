@@ -8,7 +8,13 @@
 import Foundation
 import CoreData
 
-struct ExerciseRepository {
+protocol ExerciseRepositoryProtocol {
+    func getExercise() throws -> [Exercise]
+    func addExercise(category: String, duration: Int64, intensity: Int64, startDate: Date) throws
+    func deleteExercises(at offsets: IndexSet , exercises: [Exercise]) throws
+}
+
+struct ExerciseRepository: ExerciseRepositoryProtocol {
     
     let viewContext: NSManagedObjectContext
     

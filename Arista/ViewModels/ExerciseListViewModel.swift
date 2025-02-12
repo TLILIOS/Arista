@@ -13,10 +13,14 @@ class ExerciseListViewModel: ObservableObject, ErrorHandling {
     @Published var exercises = [Exercise]()
     @Published var errorMessage: String?
     @Published var showError = false
-    let exerciseRepository: ExerciseRepository = ExerciseRepository()
+    private let exerciseRepository: ExerciseRepositoryProtocol
+    func icon(for exercise: Exercise) -> String {
+        return iconForCategory(exercise.category ?? "")
+    }
     
     
-    init() {
+    init(exerciseRepository: ExerciseRepositoryProtocol = ExerciseRepository()) {
+        self.exerciseRepository = exerciseRepository
         refreshExercises()
     }
     
@@ -41,6 +45,44 @@ class ExerciseListViewModel: ObservableObject, ErrorHandling {
             handleError(error, operation: "Impossible de supprimer l'exercice")
             // Recharger les exercices pour assurer la synchronisation avec l'interface
             refreshExercises()
+        }
+    }
+    func iconForCategory(_ category: String) -> String {
+        switch category {
+        case "Football":
+            return "sportscourt"
+        case "Natation":
+            return "waveform.path.ecg"
+        case "Running":
+            return "figure.run"
+        case "Marche":
+            return "figure.walk"
+        case "Cyclisme":
+            return "bicycle"
+        case "Basketball":
+            return "basketball"
+        case "Tennis":
+            return "tennis.racket"
+        case "Yoga":
+            return "figure.yoga"
+        case "Golf":
+            return "figure.golf"
+        case "Escalade":
+            return "figure.climbing"
+        case "Musculation":
+            return "dumbbell"
+        case "Randonnée":
+            return "figure.hiking"
+        case "Danse":
+            return "figure.dance"
+        case "Boxe":
+            return "figure.boxing"
+        case "Ski":
+            return "figure.skiing"
+        case "Surf":
+            return "figure.surfing"
+        default:
+            return "person.fill.questionmark"
         }
     }
 
