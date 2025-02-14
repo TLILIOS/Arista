@@ -35,5 +35,17 @@ struct ExerciseRowView: View {
 }
 
 #Preview {
-    ExerciseRowView()
+    let exercise = Exercise(context: PersistenceController.preview.container.viewContext)
+    exercise.category = "Running"
+    exercise.duration = 30
+    exercise.intensity = 5
+    exercise.startDate = Date()
+    
+    return ExerciseRowView(
+        exercise: exercise, // Exercice de démonstration
+        onDelete: {
+            print("Suppression de l'exercice")
+        },
+        iconName: "figure.run" // Icône de démonstration
+    )
 }

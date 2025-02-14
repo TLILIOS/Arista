@@ -48,6 +48,10 @@ struct PersistenceController {
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
-        try! DefaultData(viewContext: container.viewContext).apply()
+        // Ne pas ajouter les données par défaut si la base est en mémoire
+        if !inMemory {
+            try! DefaultData(viewContext: container.viewContext).apply()
+        }
+        
     }
 }

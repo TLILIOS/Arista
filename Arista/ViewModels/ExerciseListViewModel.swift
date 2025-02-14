@@ -13,6 +13,7 @@ class ExerciseListViewModel: ObservableObject, ErrorHandling {
     @Published var exercises = [Exercise]()
     @Published var errorMessage: String?
     @Published var showError = false
+    
     private let exerciseRepository: ExerciseRepositoryProtocol
     func icon(for exercise: Exercise) -> String {
         return iconForCategory(exercise.category ?? "")

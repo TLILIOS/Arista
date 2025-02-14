@@ -12,7 +12,10 @@ class AddExerciseViewModel: ObservableObject {
     @Published var startTime: Date = Date()
     @Published var duration: Int64 = 0
     @Published var intensity: Int64 = 0
-    
+    private let exerciseRepository: ExerciseRepositoryProtocol
+    init(exerciseRepository: ExerciseRepositoryProtocol = ExerciseRepository()) {
+        self.exerciseRepository = exerciseRepository
+    }
   
     func addExercise() -> Bool {
         do {

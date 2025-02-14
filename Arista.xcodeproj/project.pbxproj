@@ -24,6 +24,13 @@
 		53E5876F2B236DBC00E4EF99 /* AddExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E5876E2B236DBC00E4EF99 /* AddExerciseViewModel.swift */; };
 		53E587712B23714800E4EF99 /* SleepHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E587702B23714800E4EF99 /* SleepHistoryViewModel.swift */; };
 		D0DE24672D5BCC2F00ED7680 /* ExerciseRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE24662D5BCC2F00ED7680 /* ExerciseRowView.swift */; };
+		D0DE24692D5D123F00ED7680 /* ExerciseRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE24682D5D123F00ED7680 /* ExerciseRepositoryTests.swift */; };
+		D0DE246B2D5F1DB400ED7680 /* SleepRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE246A2D5F1DB400ED7680 /* SleepRepositoryTests.swift */; };
+		D0DE24772D5F277A00ED7680 /* UserRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE24762D5F277A00ED7680 /* UserRepositoryTests.swift */; };
+		D0DE24792D5F2CC800ED7680 /* ExerciseListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE24782D5F2CC800ED7680 /* ExerciseListViewModelTests.swift */; };
+		D0DE247B2D5F490F00ED7680 /* AddExerciseViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE247A2D5F490F00ED7680 /* AddExerciseViewModelTests.swift */; };
+		D0DE247D2D5F495800ED7680 /* SleepHistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE247C2D5F495800ED7680 /* SleepHistoryViewModelTests.swift */; };
+		D0DE247F2D5F49CB00ED7680 /* UserDataViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE247E2D5F49CB00ED7680 /* UserDataViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +71,13 @@
 		53E5876E2B236DBC00E4EF99 /* AddExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseViewModel.swift; sourceTree = "<group>"; };
 		53E587702B23714800E4EF99 /* SleepHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryViewModel.swift; sourceTree = "<group>"; };
 		D0DE24662D5BCC2F00ED7680 /* ExerciseRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRowView.swift; sourceTree = "<group>"; };
+		D0DE24682D5D123F00ED7680 /* ExerciseRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRepositoryTests.swift; sourceTree = "<group>"; };
+		D0DE246A2D5F1DB400ED7680 /* SleepRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepRepositoryTests.swift; sourceTree = "<group>"; };
+		D0DE24762D5F277A00ED7680 /* UserRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryTests.swift; sourceTree = "<group>"; };
+		D0DE24782D5F2CC800ED7680 /* ExerciseListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListViewModelTests.swift; sourceTree = "<group>"; };
+		D0DE247A2D5F490F00ED7680 /* AddExerciseViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseViewModelTests.swift; sourceTree = "<group>"; };
+		D0DE247C2D5F495800ED7680 /* SleepHistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryViewModelTests.swift; sourceTree = "<group>"; };
+		D0DE247E2D5F49CB00ED7680 /* UserDataViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -157,6 +171,13 @@
 			isa = PBXGroup;
 			children = (
 				53E587462B235E9000E4EF99 /* AristaTests.swift */,
+				D0DE246A2D5F1DB400ED7680 /* SleepRepositoryTests.swift */,
+				D0DE24782D5F2CC800ED7680 /* ExerciseListViewModelTests.swift */,
+				D0DE247A2D5F490F00ED7680 /* AddExerciseViewModelTests.swift */,
+				D0DE247E2D5F49CB00ED7680 /* UserDataViewModelTests.swift */,
+				D0DE247C2D5F495800ED7680 /* SleepHistoryViewModelTests.swift */,
+				D0DE24762D5F277A00ED7680 /* UserRepositoryTests.swift */,
+				D0DE24682D5D123F00ED7680 /* ExerciseRepositoryTests.swift */,
 			);
 			path = AristaTests;
 			sourceTree = "<group>";
@@ -346,6 +367,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				53E587472B235E9000E4EF99 /* AristaTests.swift in Sources */,
+				D0DE24792D5F2CC800ED7680 /* ExerciseListViewModelTests.swift in Sources */,
+				D0DE247D2D5F495800ED7680 /* SleepHistoryViewModelTests.swift in Sources */,
+				D0DE246B2D5F1DB400ED7680 /* SleepRepositoryTests.swift in Sources */,
+				D0DE24772D5F277A00ED7680 /* UserRepositoryTests.swift in Sources */,
+				D0DE247B2D5F490F00ED7680 /* AddExerciseViewModelTests.swift in Sources */,
+				D0DE24692D5D123F00ED7680 /* ExerciseRepositoryTests.swift in Sources */,
+				D0DE247F2D5F49CB00ED7680 /* UserDataViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

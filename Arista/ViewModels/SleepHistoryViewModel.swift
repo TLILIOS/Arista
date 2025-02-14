@@ -11,9 +11,9 @@ class SleepHistoryViewModel: ObservableObject, ErrorHandling {
     @Published var sleepSessions = [Sleep]()
     @Published var errorMessage: String?
     @Published var showError = false
-    
-    init() {
-       
+    private let sleepRepository: SleepRepositoryProtocol
+    init(sleepRepository: SleepRepositoryProtocol = SleepRepository()) {
+        self.sleepRepository = sleepRepository
         fetchSleepSessions()
     }
     

@@ -35,14 +35,15 @@ struct ExerciseRepository: ExerciseRepositoryProtocol {
         newExercise.startDate = startDate
         try viewContext.save()
     }
-    func deleteExercises(at offsets: IndexSet, exercises: [Exercise]) throws {
-        offsets.forEach { index in
+
+    public func deleteExercises(at indexSet: IndexSet, exercises: [Exercise]) throws {
+        // Filtrer les indices pour ne garder que ceux qui sont valides
+        let validIndices = indexSet.filter { $0 < exercises.count }
+        for index in validIndices {
             let exercise = exercises[index]
             viewContext.delete(exercise)
         }
-        
-        
         try viewContext.save()
-     
     }
+
 }

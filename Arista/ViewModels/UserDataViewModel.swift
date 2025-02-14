@@ -14,11 +14,9 @@ class UserDataViewModel: ObservableObject, ErrorHandling {
     @Published var lastName: String = ""
     @Published var errorMessage: String?
     @Published var showError = false
-    
- 
-    
-    init() {
-        
+    let userRepository: UserRepositoryProtocol
+    init(userRepository: UserRepositoryProtocol = UserRepository()) {
+        self.userRepository = userRepository
         fetchUserData()
     }
     
