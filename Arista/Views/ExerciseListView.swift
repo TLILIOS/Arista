@@ -24,7 +24,7 @@ struct ExerciseListView: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .primaryAction) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         showingAddExerciseView = true
                     }) {

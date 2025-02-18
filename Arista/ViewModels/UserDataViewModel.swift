@@ -8,13 +8,14 @@
 import Foundation
 
 
-
+@MainActor
 class UserDataViewModel: ObservableObject, ErrorHandling {
     @Published var firstName: String = ""
     @Published var lastName: String = ""
     @Published var errorMessage: String?
     @Published var showError = false
-    let userRepository: UserRepositoryProtocol
+    private let userRepository: UserRepositoryProtocol
+    
     init(userRepository: UserRepositoryProtocol = UserRepository()) {
         self.userRepository = userRepository
         fetchUserData()
@@ -22,12 +23,14 @@ class UserDataViewModel: ObservableObject, ErrorHandling {
     
     private func fetchUserData() {
         do {
-             let user = try UserRepository().getUser()
+            let user = try userRepository.getUser()
+            self.firstName = user?.firstName ?? ""
+            self.lastName = user?.lastName ?? ""
             
-            firstName = user?.firstName ?? ""
-            lastName = user?.lastName ?? ""
         } catch {
-            handleError(error, operation: "Impossible de charger les données utilisateur")
+            
+            self.handleError(error, operation: "Impossible de charger les données utilisateur")
+            
         }
     }
 }

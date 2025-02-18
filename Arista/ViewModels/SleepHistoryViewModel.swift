@@ -6,12 +6,13 @@
 //
 
 import Foundation
-
+@MainActor
 class SleepHistoryViewModel: ObservableObject, ErrorHandling {
     @Published var sleepSessions = [Sleep]()
     @Published var errorMessage: String?
     @Published var showError = false
     private let sleepRepository: SleepRepositoryProtocol
+    
     init(sleepRepository: SleepRepositoryProtocol = SleepRepository()) {
         self.sleepRepository = sleepRepository
         fetchSleepSessions()
@@ -19,10 +20,9 @@ class SleepHistoryViewModel: ObservableObject, ErrorHandling {
     
     private func fetchSleepSessions() {
         do {
-            let data = SleepRepository()
-            sleepSessions = try data.getSleepSessions()
+            self.sleepSessions = try self.sleepRepository.getSleepSessions()
         } catch {
-            handleError(error, operation: "Impossible de supprimer l'exercice")
+            self.handleError(error, operation: "Impossible de récupérer les sessions de sommeil")
         }
     }
 }

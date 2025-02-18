@@ -5,15 +5,13 @@
 //  Created by TLiLi Hamdi on 14/02/2025.
 //
 import XCTest
-import Combine
 @testable import Arista
-
+@MainActor
 final class SleepHistoryViewModelTests: XCTestCase {
     
-    var cancellables = Set<AnyCancellable>()
     
     override func tearDown() {
-        cancellables.removeAll()
+        
         super.tearDown()
     }
     
@@ -34,17 +32,10 @@ final class SleepHistoryViewModelTests: XCTestCase {
         // Arrange
         let mockRepository = MockSleepRepository()
         let viewModel = SleepHistoryViewModel(sleepRepository: mockRepository)
-        let expectation = XCTestExpectation(description: "fetch empty list")
+        
         
         // Act & Assert
-        viewModel.$sleepSessions
-            .sink { sessions in
-                XCTAssertTrue(sessions.isEmpty)
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
-        
-        wait(for: [expectation], timeout: 1)
+        XCTAssertTrue(viewModel.sleepSessions.isEmpty)
     }
     
     func test_WhenRepositoryHasSessions_FetchSleepSessions_ReturnsList() {
@@ -55,37 +46,23 @@ final class SleepHistoryViewModelTests: XCTestCase {
         mockRepository.sleepSessions = [mockSession]
         
         let viewModel = SleepHistoryViewModel(sleepRepository: mockRepository)
-        let expectation = XCTestExpectation(description: "fetch sessions list")
+        
         
         // Act & Assert
-        viewModel.$sleepSessions
-            .sink { sessions in
-                XCTAssertFalse(sessions.isEmpty)
-                XCTAssertEqual(sessions.count, 1)
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
-        
-        wait(for: [expectation], timeout: 1)
+        XCTAssertFalse(viewModel.sleepSessions.isEmpty)
+        XCTAssertEqual(viewModel.sleepSessions.count, 1)
     }
     
     func test_WhenRepositoryThrowsError_ShowsError() {
         // Arrange
         let mockRepository = MockSleepRepository()
         mockRepository.shouldThrowError = true
+        
+        // Act
         let viewModel = SleepHistoryViewModel(sleepRepository: mockRepository)
-        let expectation = XCTestExpectation(description: "show error")
         
-        // Act & Assert
-        viewModel.$showError
-            .dropFirst()
-            .sink { showError in
-                if showError {
-                    expectation.fulfill()
-                }
-            }
-            .store(in: &cancellables)
         
-        wait(for: [expectation], timeout: 1)
+        // Assert
+        XCTAssertTrue(viewModel.showError)
     }
 }

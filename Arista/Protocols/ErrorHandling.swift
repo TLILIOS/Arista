@@ -9,6 +9,7 @@ import Foundation
 import CoreData
 
 // MARK: - Protocol pour la gestion des erreurs
+@MainActor
 protocol ErrorHandling: AnyObject {
     var errorMessage: String? { get set }
     var showError: Bool { get set }
