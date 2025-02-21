@@ -16,7 +16,7 @@ struct SleepHistoryView: View {
                     QualityIndicator(quality: Int(session.quality))
                         .padding()
                     VStack(alignment: .leading) {
-                        Text("Début : \(session.startDate?.formatted() ?? "")")
+                        Text("Début : \(String(describing: session.startDate?.formatted()))")
                         Text("Durée : \(session.duration/60) heures")
                     }
                 }
@@ -53,6 +53,6 @@ struct QualityIndicator: View {
     }
 }
 
-//#Preview {
-//    SleepHistoryView(viewModel: SleepHistoryViewModel(context: PersistenceController.preview.container.viewContext))
-//}
+#Preview {
+    SleepHistoryView(viewModel: SleepHistoryViewModel())
+}

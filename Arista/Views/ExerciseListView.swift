@@ -13,55 +13,35 @@ struct ExerciseListView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(viewModel.exercises) { exercise in ExerciseRowView(exercise: exercise, onDelete: {
-                    if let index = viewModel.exercises.firstIndex(of: exercise) {
-                        viewModel.deleteExercises(at: IndexSet([index]))
+            List(viewModel.exercises) { exercise in
+                HStack {
+                    Image(systemName: viewModel.iconForCategory(exercise.category ?? ""))
+                    VStack(alignment: .leading) {
+                        Text(exercise.category ?? "")
+                            .font(.headline)
+                        Text("Durée: \(exercise.duration) min")
+                            .font(.subheadline)
+                        Text(exercise.startDate?.formatted() ?? "")
+                            .font(.subheadline)
+                        
                     }
-                },
-                iconName: viewModel.iconForCategory(exercise.category ?? "")
-                )
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        showingAddExerciseView = true
-                    }) {
-                        Image(systemName: "plus")
-                    }
+                    Spacer()
+                    IntensityIndicator(intensity: Int(exercise.intensity))
                 }
             }
             .navigationTitle("Exercices")
-            .alert("Erreur", isPresented: $viewModel.showError, presenting: viewModel.errorMessage) { _ in
-                Button("OK", role: .cancel) {}
-            } message: { errorMessage in
-                Text(errorMessage)
-            }
-        }
-        .sheet(isPresented: $showingAddExerciseView) {
-            AddExerciseView(viewModel: AddExerciseViewModel(),
-                            onExerciseAdded: {
-                viewModel.refreshExercises()
+            .navigationBarItems(trailing: Button(action: {
+                showingAddExerciseView = true
+            }) {
+                Image(systemName: "plus")
             })
         }
-        .onAppear {
-            viewModel.refreshExercises()
-        }
-        .onDisappear {
-            viewModel.refreshExercises()
-        }
-        .onChange(of: showingAddExerciseView) { _, isShowing in
-            if !isShowing {
-                // Rafraîchir la liste quand la vue d'ajout se ferme
-                viewModel.refreshExercises()
-            }
+        .sheet(isPresented: $showingAddExerciseView) {
+            AddExerciseView(viewModel: AddExerciseViewModel())
         }
         
     }
-    
-    
-}
+    }
 
 struct IntensityIndicator: View {
     var intensity: Int
@@ -86,6 +66,6 @@ struct IntensityIndicator: View {
     }
 }
 
-//#Preview {
-//    ExerciseListView(viewModel: ExerciseListViewModel(context: PersistenceController.preview.container.viewContext))
-//}
+#Preview {
+    ExerciseListView(viewModel: ExerciseListViewModel())
+}

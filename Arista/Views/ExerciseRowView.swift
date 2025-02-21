@@ -23,8 +23,7 @@ struct ExerciseRowView: View {
                     .font(.subheadline)
             }
             
-            Spacer()
-            IntensityIndicator(intensity: Int(exercise.intensity))
+          
         }
         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
             Button(role: .destructive, action: onDelete) {

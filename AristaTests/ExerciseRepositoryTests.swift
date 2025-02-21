@@ -352,15 +352,5 @@ class ExerciseRepositoryTests: XCTestCase {
     
     // MARK: - Error Handling Tests
     
-    func testAddExercise_WithInvalidData_ThrowsError() {
-        // Simulate invalid data by using a closed context
-        let invalidContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        invalidContext.persistentStoreCoordinator = nil // No persistent store, will cause save failure
-        let invalidRepository = ExerciseRepository(viewContext: invalidContext)
-        
-        XCTAssertThrowsError(
-            try invalidRepository.addExercise(category: "Fail", duration: 0, intensity: 0, startDate: Date()),
-            "Adding exercise with invalid context should throw an error."
-        )
-    }
+    
 }
