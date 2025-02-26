@@ -13,6 +13,8 @@ struct AddExerciseView: View {
     var onExerciseAdded: (() -> Void)? // CallBack func
     var body: some View {
         NavigationView {
+            ZStack {
+                AnimatedBackground()
             VStack {
                 Form {
                     TextField("Catégorie", text: $viewModel.category)
@@ -26,6 +28,12 @@ struct AddExerciseView: View {
                         set: { viewModel.intensity = Int64($0) }
                     ), in: 0...10)
                 }.formStyle(.grouped)
+                // Affichage des messages d'erreur
+                                    if let errorMessage = viewModel.errorMessage {
+                                        Text(errorMessage)
+                                            .foregroundColor(.red)
+                                            .padding()
+                                    }
                 Spacer()
                 Button("Ajouter l'exercice") {
                     if viewModel.addExercise() {
@@ -35,14 +43,18 @@ struct AddExerciseView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .disabled(viewModel.category.isEmpty)
-                    
+                
             }
+
+        }
+            .scrollContentBackground(.hidden)
+            .background(Color.clear)
             .navigationTitle("Nouvel Exercice ...")
             
         }
     }
 }
 
-//#Preview {
-//    AddExerciseView(viewModel: AddExerciseViewModel(context: PersistenceController.preview.container.viewContext))
-//}
+#Preview {
+    AddExerciseView(viewModel: AddExerciseViewModel())
+}

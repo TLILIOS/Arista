@@ -5,18 +5,24 @@
 //  Created by TLiLi Hamdi on 14/02/2025.
 //
 import XCTest
-import Combine
 @testable import Arista
 
 final class AddExerciseViewModelTests: XCTestCase {
-    
-    var cancellables = Set<AnyCancellable>()
-    
+    var viewModel: AddExerciseViewModel!
+    var mockRepository: MockExerciseRepository!
+
+    override func setUp() {
+        super.setUp()
+        mockRepository = MockExerciseRepository()
+        viewModel = AddExerciseViewModel(exerciseRepository: mockRepository)
+    }
+
     override func tearDown() {
-        cancellables.removeAll()
+        viewModel = nil
+        mockRepository = nil
         super.tearDown()
     }
-    
+
     // MARK: - Mock Repository
     class MockExerciseRepository: ExerciseRepositoryProtocol {
         var shouldThrowError = false
@@ -38,11 +44,67 @@ final class AddExerciseViewModelTests: XCTestCase {
             print("MockRepository: Exercice ajouté avec succès")
         }
     }
-    
+
+    // MARK: - Tests de validation
+    func testValidateCategoryEmpty() {
+        // Arrange
+        viewModel.category = ""
+        viewModel.duration = 30
+        viewModel.intensity = 5
+
+        // Act
+        let isValid = viewModel.validate()
+
+        // Assert
+        XCTAssertFalse(isValid, "La validation doit échouer si la catégorie est vide")
+        XCTAssertEqual(viewModel.errorMessage, "La catégorie est obligatoire.", "Le message d'erreur doit être correct")
+    }
+
+    func testValidateDurationInvalid() {
+        // Arrange
+        viewModel.category = "Running"
+        viewModel.duration = 0
+        viewModel.intensity = 5
+
+        // Act
+        let isValid = viewModel.validate()
+
+        // Assert
+        XCTAssertFalse(isValid, "La validation doit échouer si la durée est <= 0")
+        XCTAssertEqual(viewModel.errorMessage, "La durée doit être supérieure à 0.", "Le message d'erreur doit être correct")
+    }
+
+    func testValidateIntensityInvalid() {
+        // Arrange
+        viewModel.category = "Running"
+        viewModel.duration = 30
+        viewModel.intensity = 11
+
+        // Act
+        let isValid = viewModel.validate()
+
+        // Assert
+        XCTAssertFalse(isValid, "La validation doit échouer si l'intensité est < 0 ou > 10")
+        XCTAssertEqual(viewModel.errorMessage, "L'intensité doit être comprise entre 0 et 10.", "Le message d'erreur doit être correct")
+    }
+
+    func testValidateSuccess() {
+        // Arrange
+        viewModel.category = "Running"
+        viewModel.duration = 30
+        viewModel.intensity = 5
+
+        // Act
+        let isValid = viewModel.validate()
+
+        // Assert
+        XCTAssertTrue(isValid, "La validation doit réussir si toutes les entrées sont valides")
+        XCTAssertNil(viewModel.errorMessage, "Aucun message d'erreur ne doit être défini en cas de succès")
+    }
+
+    // MARK: - Tests d'ajout d'exercice
     func test_AddExercise_Success() {
         // Arrange
-        let mockRepository = MockExerciseRepository()
-        let viewModel = AddExerciseViewModel(exerciseRepository: mockRepository)
         let testDate = Date()
         
         // Act
@@ -69,9 +131,7 @@ final class AddExerciseViewModelTests: XCTestCase {
     
     func test_AddExercise_Failure() {
         // Arrange
-        let mockRepository = MockExerciseRepository()
         mockRepository.shouldThrowError = true
-        let viewModel = AddExerciseViewModel(exerciseRepository: mockRepository)
         viewModel.category = "Football"
         viewModel.duration = 30
         viewModel.intensity = 5

@@ -10,17 +10,15 @@ import SwiftUI
 struct ExerciseListView: View {
     @ObservedObject var viewModel: ExerciseListViewModel
     @State private var showingAddExerciseView = false
-    @State private var animateBackground = false
+    
     var body: some View {
         NavigationView {
             ZStack {
                 // Arrière-plan animé
-                AngularGradient(gradient: Gradient(colors: [.indigo, .purple, .cyan]), center: .topLeading)
-                    .ignoresSafeArea()
-                    .hueRotation(.degrees(animateBackground ? 45 : 0))
-                    .animation(.easeInOut(duration: 10).repeatForever(autoreverses: true), value: animateBackground)
+                AnimatedBackground()
                 // Liste des exercices
-                List(viewModel.exercises) { exercise in
+                List{
+                    ForEach(viewModel.exercises) { exercise in
                     HStack {
                         Image(systemName: viewModel.iconForCategory(exercise.category ?? ""))
                         VStack(alignment: .leading) {
@@ -35,7 +33,12 @@ struct ExerciseListView: View {
                         Spacer()
                         IntensityIndicator(intensity: Int(exercise.intensity))
                     }
+                    .listRowBackground(Color.clear)
                 }
+                    .onDelete(perform: viewModel.deleteExercises)
+            }
+                .scrollContentBackground(.hidden)
+                .background(Color.clear)
                 .navigationTitle("Exercices")
                 .navigationBarItems(trailing: Button(action: {
                     showingAddExerciseView = true
@@ -45,13 +48,13 @@ struct ExerciseListView: View {
             }
         }
         .sheet(isPresented: $showingAddExerciseView) {
-            AddExerciseView(viewModel: AddExerciseViewModel())
-        }
-        .onAppear {
-            animateBackground = true
+            AddExerciseView(viewModel: AddExerciseViewModel(), onExerciseAdded: {
+                viewModel.refreshExercises()
+            })
         }
 
     }
+   
     }
 
 struct IntensityIndicator: View {
@@ -76,6 +79,7 @@ struct IntensityIndicator: View {
         }
     }
 }
+
 
 #Preview {
     ExerciseListView(viewModel: ExerciseListViewModel())

@@ -9,14 +9,10 @@ import SwiftUI
 
 struct SleepHistoryView: View {
     @ObservedObject var viewModel: SleepHistoryViewModel
-    @State private var animateBackground = false
     var body: some View {
         ZStack {
             // Arrière-plan animé
-            AngularGradient(gradient: Gradient(colors: [.indigo, .purple, .cyan]), center: .topLeading)
-                .ignoresSafeArea()
-                .hueRotation(.degrees(animateBackground ? 45 : 0))
-                .animation(.easeInOut(duration: 10).repeatForever(autoreverses: true), value: animateBackground)
+            AnimatedBackground()
             List(viewModel.sleepSessions) { session in
                 HStack {
                     QualityIndicator(quality: Int(session.quality))
@@ -26,7 +22,10 @@ struct SleepHistoryView: View {
                         Text("Durée : \(session.duration/60) heures")
                     }
                 }
+                .listRowBackground(Color.clear)
             }
+            .scrollContentBackground(.hidden)
+            .background(Color.clear)
             .navigationTitle("Historique de Sommeil")
         }
     }

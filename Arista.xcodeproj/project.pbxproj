@@ -23,6 +23,7 @@
 		53E5876D2B236D9E00E4EF99 /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E5876C2B236D9E00E4EF99 /* AddExerciseView.swift */; };
 		53E5876F2B236DBC00E4EF99 /* AddExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E5876E2B236DBC00E4EF99 /* AddExerciseViewModel.swift */; };
 		53E587712B23714800E4EF99 /* SleepHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E587702B23714800E4EF99 /* SleepHistoryViewModel.swift */; };
+		D00885772D6F24A90097C0E2 /* AnimatedBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00885762D6F24A90097C0E2 /* AnimatedBackgroundView.swift */; };
 		D0DE24672D5BCC2F00ED7680 /* ExerciseRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE24662D5BCC2F00ED7680 /* ExerciseRowView.swift */; };
 		D0DE24692D5D123F00ED7680 /* ExerciseRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE24682D5D123F00ED7680 /* ExerciseRepositoryTests.swift */; };
 		D0DE246B2D5F1DB400ED7680 /* SleepRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE246A2D5F1DB400ED7680 /* SleepRepositoryTests.swift */; };
@@ -70,6 +71,7 @@
 		53E5876C2B236D9E00E4EF99 /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
 		53E5876E2B236DBC00E4EF99 /* AddExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseViewModel.swift; sourceTree = "<group>"; };
 		53E587702B23714800E4EF99 /* SleepHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepHistoryViewModel.swift; sourceTree = "<group>"; };
+		D00885762D6F24A90097C0E2 /* AnimatedBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedBackgroundView.swift; sourceTree = "<group>"; };
 		D0DE24662D5BCC2F00ED7680 /* ExerciseRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRowView.swift; sourceTree = "<group>"; };
 		D0DE24682D5D123F00ED7680 /* ExerciseRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRepositoryTests.swift; sourceTree = "<group>"; };
 		D0DE246A2D5F1DB400ED7680 /* SleepRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepRepositoryTests.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				53E587622B235FF600E4EF99 /* UserDataView.swift */,
+				D00885762D6F24A90097C0E2 /* AnimatedBackgroundView.swift */,
 				53E587642B23600400E4EF99 /* ExerciseListView.swift */,
 				53E587662B23600C00E4EF99 /* SleepHistoryView.swift */,
 				53E5876C2B236D9E00E4EF99 /* AddExerciseView.swift */,
@@ -356,6 +359,7 @@
 				53E587652B23600400E4EF99 /* ExerciseListView.swift in Sources */,
 				53E5876B2B23648500E4EF99 /* ExerciseListViewModel.swift in Sources */,
 				53E5873D2B235E9000E4EF99 /* Arista.xcdatamodeld in Sources */,
+				D00885772D6F24A90097C0E2 /* AnimatedBackgroundView.swift in Sources */,
 				53E5876D2B236D9E00E4EF99 /* AddExerciseView.swift in Sources */,
 				53E5876F2B236DBC00E4EF99 /* AddExerciseViewModel.swift in Sources */,
 				53E587692B23616A00E4EF99 /* UserDataViewModel.swift in Sources */,
